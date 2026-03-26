@@ -6,43 +6,35 @@
 
 <title>Rithik.E — Portfolio</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
 
 <style>
 :root{
-  --accent:#00ffc3;
-  --bg:#030507;
-  --glass:rgba(255,255,255,0.05);
+  --bg:#0D1A0F;
+  --green:#3BFF7E;
+  --amber:#FFB830;
+  --white:#EDF5EE;
+  --muted:#6B8C70;
 }
 
 body{
   margin:0;
-  font-family:Inter;
-  background:radial-gradient(circle at top,#0a1118,#020304);
-  color:white;
+  font-family:'Archivo',sans-serif;
+  background:var(--bg);
+  color:var(--white);
   overflow-x:hidden;
 }
 
-/* LOADER */
-#loader{
-  position:fixed;
-  width:100%;
-  height:100%;
-  background:black;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  z-index:9999;
-  font-family:'JetBrains Mono';
-  letter-spacing:3px;
-}
-
-/* PARTICLES */
+/* PARTICLE BG */
 #bg{
   position:fixed;
-  width:100%;
-  height:100%;
-  z-index:-1;
+  top:0;left:0;
+  width:100%;height:100%;
+  z-index:0;
+}
+body>*:not(#bg){
+  position:relative;
+  z-index:1;
 }
 
 /* NAV */
@@ -57,52 +49,61 @@ nav{
 
 /* HERO */
 .hero{
-  height:100vh;
   display:flex;
-  flex-direction:column;
-  justify-content:center;
-  padding-left:80px;
+  align-items:center;
+  justify-content:space-between;
+  height:100vh;
+  padding:0 10%;
+  flex-wrap:wrap;
+}
+
+.hero-text{
+  flex:1;
 }
 
 .typewriter{
   font-family:'JetBrains Mono';
-  color:var(--accent);
-  border-right:2px solid var(--accent);
+  color:var(--green);
+  border-right:2px solid var(--green);
+  padding-right:5px;
 }
 
 h1{
-  font-size:80px;
-  margin:0;
+  font-size:60px;
+  margin:10px 0;
 }
 
-/* FLOAT PROFILE */
+p{
+  color:var(--muted);
+}
+
+/* PROFILE */
 .profile{
-  position:absolute;
-  right:100px;
-  top:50%;
-  transform:translateY(-50%);
-  animation:float 6s ease-in-out infinite;
+  flex:1;
+  display:flex;
+  justify-content:center;
 }
 
 .profile img{
-  width:240px;
-  height:240px;
+  width:220px;
+  height:220px;
   border-radius:50%;
-  border:3px solid var(--accent);
-  box-shadow:0 0 60px var(--accent);
+  object-fit:cover;
+  border:3px solid var(--green);
+  box-shadow:0 0 40px var(--green);
+  animation:float 6s ease-in-out infinite;
 }
 
 @keyframes float{
-  0%,100%{transform:translateY(-50%)}
-  50%{transform:translateY(-60%)}
+  50%{transform:translateY(-20px)}
 }
 
 /* SECTION */
 section{
-  padding:120px 80px;
+  padding:100px 10%;
   opacity:0;
-  transform:translateY(60px);
-  transition:all 1s ease;
+  transform:translateY(40px);
+  transition:1s;
 }
 
 section.show{
@@ -110,161 +111,137 @@ section.show{
   transform:translateY(0);
 }
 
-/* GLASS CARD */
-.card{
-  background:var(--glass);
-  backdrop-filter:blur(20px);
-  border-radius:20px;
-  padding:25px;
-  transition:0.4s;
-  transform-style:preserve-3d;
-}
-
-.card:hover{
-  transform:scale(1.03);
-  box-shadow:0 0 40px rgba(0,255,195,0.3);
-}
-
 /* GRID */
 .grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:30px;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:20px;
+}
+
+/* CARD */
+.card{
+  background:rgba(255,255,255,0.03);
+  padding:20px;
+  border-radius:15px;
+  transition:0.3s;
+}
+
+.card:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 30px rgba(0,255,200,0.3);
 }
 
 /* BUTTON */
 .btn{
-  padding:12px 25px;
-  border-radius:25px;
-  border:1px solid var(--accent);
-  color:var(--accent);
+  display:inline-block;
+  margin-top:10px;
+  padding:10px 20px;
+  border-radius:20px;
+  border:1px solid var(--green);
+  color:var(--green);
   text-decoration:none;
 }
 
 .btn:hover{
-  background:var(--accent);
+  background:var(--green);
   color:black;
-}
-
-/* DEMO */
-.demo-btn{
-  display:inline-block;
-  margin-top:10px;
-  padding:8px 15px;
-  border-radius:20px;
-  background:linear-gradient(45deg,#00ffc3,#00aaff);
-  color:black;
-  text-decoration:none;
 }
 </style>
 </head>
 
 <body>
 
-<div id="loader">LOADING EXPERIENCE...</div>
 <canvas id="bg"></canvas>
 
 <nav>
 <div>RITHIK.E</div>
 </nav>
 
-<!-- HERO -->
 <div class="hero">
+
+<div class="hero-text">
 <div id="type" class="typewriter"></div>
 <h1>RITHIK.E</h1>
-<p>Engineering the future of agriculture with AI & smart systems 🌱</p>
+<p>Agricultural Engineer | AI | Smart Farming 🌱</p>
+<a href="RITHIK_RESUME.pdf" download class="btn">Download Resume</a>
 </div>
 
 <div class="profile">
 <img src="pic.jpeg">
 </div>
 
-<!-- PROJECTS -->
-<section>
-<h2>Projects</h2>
-
-<div class="grid">
-
-<div class="card tilt">
-<h3>Water Stress Detection</h3>
-<p>Multi-sensor AI-based crop stress system</p>
-<a href="https://water-stress-app-dxsqddmk4xuauxuucwnrdx.streamlit.app/" target="_blank" class="demo-btn">Live Demo</a>
 </div>
 
-<div class="card tilt">
+<section>
+<h2>Projects</h2>
+<div class="grid">
+
+<div class="card">
+<h3>Water Stress Detection</h3>
+<p>AI-based crop monitoring system</p>
+</div>
+
+<div class="card">
 <h3>Smart Sprayer</h3>
-<p>SoC powered automated spraying system</p>
+<p>Automated spraying system</p>
 </div>
 
 </div>
 </section>
 
-<!-- CONTACT -->
 <section>
 <h2>Contact</h2>
-<a href="RITHIK_RESUME.pdf" download class="btn">Download Resume</a>
+<p>Email: rithickcr2@gmail.com</p>
 </section>
 
 <script>
-// LOADER
-setTimeout(()=>{loader.style.display="none"},1500);
-
 // TYPEWRITER
-let t="RITHIK.E";
+let txt="RITHIK.E";
 let i=0;
 function type(){
- if(i<t.length){
-  typeText.innerHTML+=t[i];
-  i++; setTimeout(type,100);
- }
+  if(i<txt.length){
+    document.getElementById("type").innerHTML+=txt[i];
+    i++;
+    setTimeout(type,100);
+  }
 }
 type();
 
 // PARTICLES
-const c=document.getElementById("bg");
-const ctx=c.getContext("2d");
-c.width=window.innerWidth;
-c.height=window.innerHeight;
+const canvas=document.getElementById("bg");
+const ctx=canvas.getContext("2d");
 
-let p=[];
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let particles=[];
 for(let i=0;i<80;i++){
- p.push({x:Math.random()*c.width,y:Math.random()*c.height});
+  particles.push({
+    x:Math.random()*canvas.width,
+    y:Math.random()*canvas.height
+  });
 }
 
-function draw(){
- ctx.clearRect(0,0,c.width,c.height);
- p.forEach(a=>{
-  a.y+=0.5;
-  if(a.y>c.height) a.y=0;
-  ctx.fillStyle="#00ffc3";
-  ctx.fillRect(a.x,a.y,2,2);
- });
- requestAnimationFrame(draw);
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles.forEach(p=>{
+    p.y+=0.4;
+    if(p.y>canvas.height)p.y=0;
+    ctx.fillStyle="#3BFF7E";
+    ctx.fillRect(p.x,p.y,2,2);
+  });
+  requestAnimationFrame(animate);
 }
-draw();
+animate();
 
-// SCROLL REVEAL
+// SCROLL
 const sections=document.querySelectorAll("section");
 window.addEventListener("scroll",()=>{
- sections.forEach(sec=>{
-  const top=sec.getBoundingClientRect().top;
-  if(top<window.innerHeight-100){
-    sec.classList.add("show");
-  }
- });
-});
-
-// TILT
-document.querySelectorAll(".tilt").forEach(card=>{
- card.addEventListener("mousemove",e=>{
-  let r=card.getBoundingClientRect();
-  let x=e.clientX-r.left;
-  let y=e.clientY-r.top;
-  let rx=(y/r.height-0.5)*10;
-  let ry=(x/r.width-0.5)*-10;
-  card.style.transform=`rotateX(${rx}deg) rotateY(${ry}deg)`;
- });
- card.addEventListener("mouseleave",()=>card.style.transform="rotate(0)");
+  sections.forEach(sec=>{
+    if(sec.getBoundingClientRect().top<window.innerHeight-100){
+      sec.classList.add("show");
+    }
+  });
 });
 </script>
 
