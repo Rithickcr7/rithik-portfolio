@@ -1,248 +1,884 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rithik.E — Agricultural Engineer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;600;700&family=Archivo:ital,wght@0,400;0,600;0,800;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #0D1A0F;
+      --bg2: #111D13;
+      --bg3: #162019;
+      --green: #3BFF7E;
+      --green-dim: #1A7A3C;
+      --amber: #FFB830;
+      --white: #EDF5EE;
+      --muted: #6B8C70;
+      --card: rgba(255,255,255,0.03);
+      --border: rgba(59,255,126,0.12);
+    }
 
-<title>Rithik.E — Portfolio</title>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior: smooth; }
 
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'Archivo', sans-serif;
+      overflow-x: hidden;
+      cursor: none;
+    }
 
-<style>
-:root{
-  --bg:#0D1A0F;
-  --green:#3BFF7E;
-  --amber:#FFB830;
-  --white:#EDF5EE;
-  --muted:#6B8C70;
-}
+    /* CURSOR */
+    #cur {
+      position: fixed; width:12px; height:12px;
+      background: var(--green); border-radius:50%;
+      pointer-events:none; z-index:9999;
+      transform:translate(-50%,-50%);
+      transition: width .15s, height .15s, background .15s;
+      mix-blend-mode: difference;
+    }
+    #cur.big { width:36px; height:36px; background: var(--amber); }
 
-body{
-  margin:0;
-  font-family:'Archivo',sans-serif;
-  background:var(--bg);
-  color:var(--white);
-  overflow-x:hidden;
-}
+    /* GRID BG */
+    body::after {
+      content:'';
+      position:fixed; inset:0;
+      background-image:
+        linear-gradient(rgba(59,255,126,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(59,255,126,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events:none; z-index:0;
+    }
 
-/* PARTICLE BG */
-#bg{
-  position:fixed;
-  top:0;left:0;
-  width:100%;height:100%;
-  z-index:0;
-}
-body>*:not(#bg){
-  position:relative;
-  z-index:1;
-}
+    /* NAV */
+    nav {
+      position:fixed; top:0; left:0; right:0; z-index:100;
+      display:flex; justify-content:space-between; align-items:center;
+      padding:1.2rem 4rem;
+      background:rgba(13,26,15,0.88);
+      backdrop-filter:blur(14px);
+      border-bottom:1px solid var(--border);
+    }
+    .logo {
+      font-family:'JetBrains Mono', monospace;
+      font-size:.85rem; color:var(--green);
+      letter-spacing:3px;
+    }
+    .logo span { color:var(--amber); }
+    .nav-links { display:flex; gap:2rem; list-style:none; }
+    .nav-links a {
+      color:var(--muted); text-decoration:none;
+      font-size:.72rem; letter-spacing:2px;
+      text-transform:uppercase; font-weight:600;
+      transition:color .2s;
+    }
+    .nav-links a:hover { color:var(--green); }
 
-/* NAV */
-nav{
-  position:fixed;
-  width:100%;
-  padding:15px 40px;
-  display:flex;
-  justify-content:space-between;
-  backdrop-filter:blur(10px);
-}
+    /* HERO */
+    .hero {
+      min-height:100vh;
+      display:flex; flex-direction:column; justify-content:center;
+      padding:8rem 4rem 4rem;
+      position:relative; overflow:hidden; z-index:1;
+    }
+    .hero-content-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 4rem;
+    }
+    .hero-eyebrow {
+      display:flex; align-items:center; gap:1rem;
+      font-family:'JetBrains Mono', monospace;
+      font-size:.72rem; color:var(--green);
+      letter-spacing:3px; margin-bottom:2rem;
+    }
+    .hero-eyebrow::before {
+      content:''; width:40px; height:1px;
+      background:var(--green); display:block;
+    }
+    
+    /* TYPEWRITER EFFECT */
+    .typewriter-container {
+      display: inline-block;
+      overflow: hidden; 
+      white-space: nowrap;
+      border-right: 4px solid var(--green);
+      animation: typing 2.5s steps(40, end), blink-caret .75s step-end infinite;
+      margin-bottom: 1.5rem;
+      padding-right: 10px;
+    }
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+    @keyframes blink-caret {
+      from, to { border-color: transparent; }
+      50% { border-color: var(--green); }
+    }
 
-/* HERO */
-.hero{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  height:100vh;
-  padding:0 10%;
-  flex-wrap:wrap;
-}
+    .hero-name {
+      font-family:'Archivo', sans-serif;
+      font-size:clamp(3.5rem, 8vw, 8rem);
+      font-weight:800; line-height:.95;
+      letter-spacing:-3px;
+    }
+    .hero-name .first { color:var(--white); }
+    .hero-name .last {
+      color:transparent;
+      -webkit-text-stroke:2px var(--green);
+    }
+    
+    /* ROTATING PROFILE PIC */
+    .profile-pic-container {
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+      border: 3px dashed var(--green);
+      padding: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-shrink: 0;
+      animation: rotate-dashed 20s linear infinite;
+    }
+    .profile-pic {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      animation: counter-rotate 20s linear infinite; /* Keeps the image upright while border spins */
+    }
+    @keyframes rotate-dashed {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    @keyframes counter-rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(-360deg); }
+    }
 
-.hero-text{
-  flex:1;
-}
+    .hero-desc {
+      font-size:1rem; color:var(--muted); max-width:560px;
+      line-height:1.9; margin-bottom:3rem;
+    }
+    .hero-desc strong { color:var(--white); }
+    .hero-actions { display:flex; gap:1rem; flex-wrap:wrap; align-items:center; }
+    .btn {
+      padding:.85rem 2rem;
+      font-family:'Archivo', sans-serif;
+      font-size:.75rem; font-weight:700;
+      letter-spacing:2px; text-transform:uppercase;
+      text-decoration:none; cursor:none;
+      transition:transform .2s, box-shadow .2s;
+      display:inline-block;
+    }
+    .btn:hover { transform:translateY(-3px); }
+    .btn-g {
+      background:var(--green); color:var(--bg);
+      box-shadow:0 0 0 0 var(--green);
+    }
+    .btn-g:hover { box-shadow:0 0 24px rgba(59,255,126,0.4); }
+    .btn-o {
+      background:transparent; color:var(--amber);
+      border:1.5px solid var(--amber);
+    }
+    .btn-o:hover { box-shadow:0 0 20px rgba(255,184,48,0.3); }
 
-.typewriter{
-  font-family:'JetBrains Mono';
-  color:var(--green);
-  border-right:2px solid var(--green);
-  padding-right:5px;
-}
+    /* HERO BADGES */
+    .hero-badges {
+      position:absolute; right:4rem; top:50%;
+      transform:translateY(-50%);
+      display:flex; flex-direction:column; gap:1rem;
+    }
+    .badge {
+      padding:1rem 1.5rem;
+      background:var(--card);
+      border:1px solid var(--border);
+      display:flex; align-items:center; gap:1rem;
+      min-width:240px;
+      animation: slideIn .6s ease both;
+    }
+    .badge:nth-child(1) { animation-delay:.2s; }
+    .badge:nth-child(2) { animation-delay:.4s; }
+    .badge:nth-child(3) { animation-delay:.6s; }
+    .badge:nth-child(4) { animation-delay:.8s; }
+    @keyframes slideIn {
+      from { opacity:0; transform:translateX(30px); }
+      to { opacity:1; transform:translateX(0); }
+    }
+    .badge-icon { font-size:1.6rem; }
+    .badge-text .val {
+      font-family:'Archivo', sans-serif;
+      font-weight:800; font-size:1.1rem;
+      color:var(--green); line-height:1.1;
+    }
+    .badge-text .key {
+      font-family:'JetBrains Mono', monospace;
+      font-size:.62rem; color:var(--muted);
+      letter-spacing:2px; text-transform:uppercase;
+    }
 
-h1{
-  font-size:60px;
-  margin:10px 0;
-}
+    /* WORLD RECORD TICKER */
+    .ticker-wrap {
+      background: linear-gradient(90deg, var(--green-dim), var(--amber), var(--green-dim));
+      padding:.6rem 0; overflow:hidden; position:relative; z-index:1;
+    }
+    .ticker {
+      display:flex; gap:3rem;
+      animation: ticker 20s linear infinite;
+      white-space:nowrap;
+    }
+    .ticker span {
+      font-family:'JetBrains Mono', monospace;
+      font-size:.72rem; letter-spacing:3px;
+      color:var(--bg); font-weight:500;
+      text-transform:uppercase;
+    }
+    @keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
 
-p{
-  color:var(--muted);
-}
+    /* SECTIONS */
+    section { padding:6rem 4rem; position:relative; z-index:1; }
+    .sec-label {
+      font-family:'JetBrains Mono', monospace;
+      font-size:.68rem; color:var(--green);
+      letter-spacing:4px; text-transform:uppercase;
+      margin-bottom:.5rem;
+      display:flex; align-items:center; gap:.8rem;
+    }
+    .sec-label::after {
+      content:''; flex:1; height:1px;
+      background:linear-gradient(90deg, var(--green-dim), transparent);
+    }
+    .sec-title {
+      font-family:'Archivo', sans-serif;
+      font-size:clamp(2rem,5vw,3.8rem);
+      font-weight:800; line-height:1;
+      letter-spacing:-1px;
+      color:var(--white); margin-bottom:3rem;
+    }
+    .sec-title em { color:var(--green); font-style:normal; }
 
-/* PROFILE */
-.profile{
-  flex:1;
-  display:flex;
-  justify-content:center;
-}
+    /* ABOUT */
+    #about { background:var(--bg2); }
+    .about-wrap {
+      display:grid; grid-template-columns:1.4fr 1fr;
+      gap:4rem; align-items:start;
+    }
+    .about-p { color:var(--muted); line-height:1.9; font-size:.95rem; margin-bottom:1.2rem; }
+    .about-p strong { color:var(--white); }
+    .pull-quote {
+      margin:2rem 0;
+      padding:1.5rem 2rem;
+      border-left:3px solid var(--green);
+      background:rgba(59,255,126,0.04);
+      font-size:1rem; font-style:italic;
+      color:var(--white); line-height:1.7;
+    }
+    .skills-group { margin-bottom:2rem; }
+    .skills-group h4 {
+      font-family:'JetBrains Mono', monospace;
+      font-size:.68rem; color:var(--amber);
+      letter-spacing:3px; text-transform:uppercase;
+      margin-bottom:1rem;
+    }
+    .skill-tags { display:flex; flex-wrap:wrap; gap:.5rem; }
+    .skill-tag {
+      padding:.4rem 1rem;
+      border:1px solid var(--border);
+      font-size:.73rem; color:var(--white);
+      letter-spacing:1px; font-family:'JetBrains Mono', monospace;
+      transition:border-color .2s, color .2s;
+    }
+    .skill-tag:hover { border-color:var(--green); color:var(--green); }
+    
+    /* AI TOOLS SPECIFIC COLORING */
+    .ai-tag {
+      border-color: rgba(255,184,48,0.3);
+      color: var(--amber);
+    }
+    .ai-tag:hover { border-color: var(--amber); color: var(--white); }
 
-.profile img{
-  width:220px;
-  height:220px;
-  border-radius:50%;
-  object-fit:cover;
-  border:3px solid var(--green);
-  box-shadow:0 0 40px var(--green);
-  animation:float 6s ease-in-out infinite;
-}
+    /* EDUCATION */
+    #education { background:var(--bg); }
+    .edu-row {
+      display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr));
+      gap:1.5rem;
+    }
+    .edu-card {
+      padding:2rem;
+      border:1px solid var(--border);
+      background:var(--card);
+      position:relative; overflow:hidden;
+      transition:border-color .3s, transform .3s;
+    }
+    .edu-card:hover { border-color:var(--green); transform:translateY(-5px); }
+    .edu-card::before {
+      content:'';
+      position:absolute; top:0; left:0; right:0; height:2px;
+      background:linear-gradient(90deg, var(--green), transparent);
+    }
+    .edu-score {
+      font-family:'Archivo', sans-serif;
+      font-size:2.5rem; font-weight:800;
+      color:rgba(59,255,126,0.12);
+      position:absolute; bottom:1rem; right:1rem;
+      line-height:1;
+    }
+    .edu-card h3 {
+      font-size:1rem; font-weight:700;
+      color:var(--white); margin-bottom:.4rem;
+    }
+    .edu-card .inst {
+      font-size:.8rem; color:var(--green);
+      margin-bottom:.3rem;
+    }
+    .edu-card .yr {
+      font-family:'JetBrains Mono', monospace;
+      font-size:.65rem; color:var(--muted);
+      letter-spacing:2px;
+    }
 
-@keyframes float{
-  50%{transform:translateY(-20px)}
-}
+    /* PROJECTS */
+    #projects { background:var(--bg2); }
+    .proj-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(300px,1fr));
+      gap:1.5rem;
+    }
+    .proj-card {
+      padding:2rem;
+      border:1px solid var(--border);
+      background:var(--card);
+      transition:transform .3s, border-color .3s;
+      position:relative;
+    }
+    .proj-card:hover { transform:translateY(-6px); border-color:var(--green); }
+    .proj-card:hover .proj-num { opacity:.25; }
+    .proj-num {
+      font-family:'Archivo', sans-serif;
+      font-weight:800; font-size:5rem;
+      color:rgba(59,255,126,0.07);
+      position:absolute; top:-1rem; right:1.5rem;
+      line-height:1; transition:opacity .3s;
+    }
+    .proj-period {
+      font-family:'JetBrains Mono', monospace;
+      font-size:.62rem; color:var(--amber);
+      letter-spacing:2px; margin-bottom:1rem;
+    }
+    .proj-card h3 {
+      font-size:1rem; font-weight:700;
+      color:var(--white); margin-bottom:.8rem; line-height:1.3;
+    }
+    .proj-card p {
+      font-size:.82rem; color:var(--muted);
+      line-height:1.8; margin-bottom:1.2rem;
+    }
+    .proj-card ul {
+      margin-left: 1.2rem;
+      margin-bottom: 1.2rem;
+      font-size: .82rem;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+    .proj-tags { display:flex; flex-wrap:wrap; gap:.4rem; }
+    .proj-tag {
+      font-family:'JetBrains Mono', monospace;
+      font-size:.6rem; padding:.25rem .6rem;
+      border:1px solid rgba(59,255,126,0.2);
+      color:var(--green); letter-spacing:1px;
+    }
 
-/* SECTION */
-section{
-  padding:100px 10%;
-  opacity:0;
-  transform:translateY(40px);
-  transition:1s;
-}
+    /* INTERNSHIPS */
+    #internships { background:var(--bg3); }
+    .intern-list { display:flex; flex-direction:column; gap:1rem; }
+    .intern-card {
+      display:grid; grid-template-columns:auto 1fr;
+      gap:1.5rem; align-items:start;
+      padding:1.8rem 2rem;
+      border:1px solid var(--border);
+      background:var(--card);
+      transition:border-color .3s, transform .3s;
+    }
+    .intern-card:hover { border-color:var(--green); transform:translateX(6px); }
+    .intern-dot {
+      width:14px; height:14px; border-radius:50%;
+      background:var(--green); margin-top:5px;
+      box-shadow:0 0 10px rgba(59,255,126,0.6);
+      flex-shrink:0;
+    }
+    .intern-body h3 {
+      font-size:1rem; font-weight:700;
+      color:var(--white); margin-bottom:.25rem;
+    }
+    .intern-body .co {
+      font-size:.78rem; color:var(--green); margin-bottom:.2rem;
+    }
+    .intern-body .mo {
+      font-family:'JetBrains Mono', monospace;
+      font-size:.63rem; color:var(--muted);
+      letter-spacing:2px; margin-bottom:.8rem;
+    }
+    .intern-body p { font-size:.82rem; color:var(--muted); line-height:1.7; }
 
-section.show{
-  opacity:1;
-  transform:translateY(0);
-}
+    /* ACHIEVEMENTS */
+    #achievements { background:var(--bg); }
+    .ach-grid {
+      display:grid; grid-template-columns:repeat(auto-fit, minmax(300px,1fr));
+      gap:1.5rem;
+    }
+    .ach-card {
+      padding:2rem;
+      border:1px solid var(--border);
+      background:var(--card);
+      position:relative; overflow:hidden;
+      transition:transform .3s, border-color .3s;
+    }
+    .ach-card:hover { transform:translateY(-5px); border-color:var(--amber); }
+    .ach-card::after {
+      content:''; position:absolute;
+      bottom:0; left:0; right:0; height:2px;
+      background:linear-gradient(90deg, var(--amber), transparent);
+      opacity:0; transition:opacity .3s;
+    }
+    .ach-card:hover::after { opacity:1; }
+    .ach-icon { font-size:2.2rem; margin-bottom:1rem; display:block; }
+    .ach-card h3 {
+      font-size:.88rem; font-weight:700;
+      color:var(--amber); letter-spacing:1px;
+      text-transform:uppercase; margin-bottom:.6rem;
+    }
+    .ach-card p { font-size:.8rem; color:var(--muted); line-height:1.75; }
 
-/* GRID */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:20px;
-}
+    /* CERTIFICATIONS */
+    #certifications { background:var(--bg2); padding-top: 2rem; }
+    .cert-row { display:flex; flex-wrap:wrap; gap:1rem; }
+    .cert-pill {
+      display:flex; align-items:center; gap:.8rem;
+      padding:.9rem 1.5rem;
+      border:1px solid var(--border);
+      background:var(--card);
+      transition:border-color .2s, transform .2s;
+    }
+    .cert-pill:hover { border-color:var(--green); transform:translateY(-3px); }
+    .cert-pill span:first-child { font-size:1.3rem; }
+    .cert-pill span:last-child {
+      font-size:.8rem; font-weight:600;
+      color:var(--white); letter-spacing:1px;
+    }
 
-/* CARD */
-.card{
-  background:rgba(255,255,255,0.03);
-  padding:20px;
-  border-radius:15px;
-  transition:0.3s;
-}
+    /* CONTACT */
+    #contact {
+      background: radial-gradient(ellipse at center, rgba(59,255,126,0.06) 0%, var(--bg) 70%);
+      text-align:center;
+    }
+    .contact-inner { max-width:620px; margin:0 auto; }
+    .contact-inner .sec-label { justify-content:center; }
+    .contact-inner .sec-label::after { display:none; }
+    .contact-p { color:var(--muted); line-height:1.9; margin-bottom:3rem; font-size:.95rem; }
+    .contact-grid {
+      display:flex; justify-content:center;
+      gap:1rem; flex-wrap:wrap; margin-bottom:2.5rem;
+    }
+    .c-link {
+      display:flex; align-items:center; gap:.6rem;
+      padding:.9rem 1.5rem;
+      border:1px solid var(--border);
+      color:var(--white); text-decoration:none;
+      font-size:.78rem; letter-spacing:1px;
+      transition:border-color .2s, color .2s, transform .2s;
+    }
+    .c-link:hover { border-color:var(--green); color:var(--green); transform:translateY(-3px); }
 
-.card:hover{
-  transform:scale(1.05);
-  box-shadow:0 0 30px rgba(0,255,200,0.3);
-}
+    /* FOOTER */
+    footer {
+      background:var(--bg); border-top:1px solid var(--border);
+      text-align:center; padding:2rem;
+      font-family:'JetBrains Mono', monospace;
+      font-size:.65rem; color:var(--muted);
+      letter-spacing:2px;
+    }
+    footer span { color:var(--green); }
 
-/* BUTTON */
-.btn{
-  display:inline-block;
-  margin-top:10px;
-  padding:10px 20px;
-  border-radius:20px;
-  border:1px solid var(--green);
-  color:var(--green);
-  text-decoration:none;
-}
+    /* FADE IN */
+    .fi { opacity:0; transform:translateY(24px); transition:opacity .7s, transform .7s; }
+    .fi.on { opacity:1; transform:none; }
 
-.btn:hover{
-  background:var(--green);
-  color:black;
-}
-</style>
+    @media(max-width:900px){
+      .hero-badges { display:none; }
+      .about-wrap { grid-template-columns:1fr; }
+      .hero-content-wrapper { flex-direction: column-reverse; text-align: center; gap: 2rem;}
+      .hero-eyebrow { justify-content: center; }
+      .hero-actions { justify-content: center; }
+      nav { padding:1.2rem 1.5rem; }
+      .nav-links { gap:1rem; display: none; /* Can add a hamburger menu later */ } 
+      section { padding:4rem 1.5rem; }
+      .hero { padding:7rem 1.5rem 4rem; }
+    }
+  </style>
 </head>
-
 <body>
 
-<canvas id="bg"></canvas>
+<div id="cur"></div>
 
+<!-- NAV -->
 <nav>
-<div>RITHIK.E</div>
+  <div class="logo">RITHIK<span>.E</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#internships">Experience</a></li>
+    <li><a href="#achievements">Awards</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
 </nav>
 
-<div class="hero">
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content-wrapper">
+    <div class="hero-text">
+      <div class="hero-eyebrow">Agricultural Engineer · Chennai · Class of 2026</div>
+      
+      <!-- Typewriter Container -->
+      <div class="typewriter-container">
+        <h1 class="hero-name">
+          <span class="first">RITHIK</span><span class="last">.E</span>
+        </h1>
+      </div>
 
-<div class="hero-text">
-<div id="type" class="typewriter"></div>
-<h1>RITHIK.E</h1>
-<p>Agricultural Engineer | AI | Smart Farming 🌱</p>
-<a href="RITHIK_RESUME.pdf" download class="btn">Download Resume</a>
-</div>
+      <p class="hero-desc">
+        <strong>B.Tech Agricultural Engineering @ SRM Valliammai</strong> — building smart agri-tech solutions at the intersection of precision farming, IoT, and sustainable engineering. World record holder. Best outgoing student 2026.
+      </p>
+      <div class="hero-actions">
+        <a href="#projects" class="btn btn-g">View Projects</a>
+        <a href="#contact" class="btn btn-o">Get In Touch</a>
+      </div>
+    </div>
 
-<div class="profile">
-<img src="pic.jpeg">
-</div>
+    <!-- Rotating Profile Image -->
+    <div class="profile-pic-container">
+      <img src="https://storage.googleapis.com/chat-engine-bucket/04d9c7da-4e2b-449e-ba78-18e4ff8d9c24/859737.jpeg" alt="Rithik E" class="profile-pic" />
+    </div>
+  </div>
 
-</div>
-
-<section>
-<h2>Projects</h2>
-<div class="grid">
-
-<div class="card">
-<h3>Water Stress Detection</h3>
-<p>AI-based crop monitoring system</p>
-</div>
-
-<div class="card">
-<h3>Smart Sprayer</h3>
-<p>Automated spraying system</p>
-</div>
-
-</div>
+  <div class="hero-badges">
+    <div class="badge">
+      <div class="badge-icon">🎓</div>
+      <div class="badge-text">
+        <div class="val">8.5 CGPA</div>
+        <div class="key">B.Tech Agri Engg</div>
+      </div>
+    </div>
+    <div class="badge">
+      <div class="badge-icon">🏆</div>
+      <div class="badge-text">
+        <div class="val">World Record</div>
+        <div class="key">Kalam Books</div>
+      </div>
+    </div>
+    <div class="badge">
+      <div class="badge-icon">🥇</div>
+      <div class="badge-text">
+        <div class="val">Multiple Awards</div>
+        <div class="key">Paper Presentations</div>
+      </div>
+    </div>
+    <div class="badge">
+      <div class="badge-icon">⭐</div>
+      <div class="badge-text">
+        <div class="val">Best Outgoing</div>
+        <div class="key">Student 2026</div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<section>
-<h2>Contact</h2>
-<p>Email: rithickcr2@gmail.com</p>
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker">
+    <span>🌾 Agricultural Engineer</span>
+    <span>🏆 World Record Holder — Kalam Books</span>
+    <span>⭐ Best Outgoing Student 2026</span>
+    <span>🥇 1st Prize — SOC-Based Smart Sprayer</span>
+    <span>🌱 Precision Farming · IoT · GIS · AutoCAD</span>
+    <span>🌾 Agricultural Engineer</span>
+    <span>🏆 World Record Holder — Kalam Books</span>
+    <span>⭐ Best Outgoing Student 2026</span>
+    <span>🥇 1st Prize — SOC-Based Smart Sprayer</span>
+    <span>🌱 Precision Farming · IoT · GIS · AutoCAD</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="sec-label">01 // About</div>
+  <h2 class="sec-title">Who is <em>Rithik?</em></h2>
+  <div class="about-wrap">
+    <div>
+      <p class="about-p fi">I'm Rithik.E, a final-year <strong>B.Tech Agricultural Engineering student at SRM Valliammai Engineering College</strong>, Chennai — graduating in 2026 with a CGPA of 8.5.</p>
+      <div class="pull-quote fi">"To obtain a role that provides opportunities for learning, collaboration, and skill development, where I can contribute through my curiosity, dedication, and commitment to delivering quality work."</div>
+      <p class="about-p fi">My work lives at the edge of <strong>precision agriculture, IoT, and smart engineering</strong>. Beyond academics, I'm a <strong>World Record holder</strong>, a multi-award winner at inter-college paper presentations, and the recipient of the <strong>Best Outgoing Student of the Year 2026</strong> award from my department.</p>
+    </div>
+    <div>
+      <div class="skills-group fi">
+        <h4>Software & Technical</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">AutoCAD</span>
+          <span class="skill-tag">Solidworks</span>
+          <span class="skill-tag">Appsheet</span>
+          <span class="skill-tag">HTML & CSS</span>
+          <span class="skill-tag">MS Word & PPT</span>
+          <span class="skill-tag">Canva</span>
+          <span class="skill-tag">Adobe Express</span>
+        </div>
+      </div>
+      <div class="skills-group fi">
+        <h4>AI Tools</h4>
+        <div class="skill-tags">
+          <span class="skill-tag ai-tag">Qwen AI</span>
+          <span class="skill-tag ai-tag">Claude</span>
+          <span class="skill-tag ai-tag">Meshy AI</span>
+          <span class="skill-tag ai-tag">Gemini Pro</span>
+          <span class="skill-tag ai-tag">ChatGPT</span>
+          <span class="skill-tag ai-tag">Heygen AI</span>
+          <span class="skill-tag ai-tag">Gamma AI</span>
+          <span class="skill-tag ai-tag">Perplexity Pro</span>
+        </div>
+      </div>
+      <div class="skills-group fi">
+        <h4>Soft Skills</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">Presentation</span>
+          <span class="skill-tag">Teaching</span>
+          <span class="skill-tag">Leadership</span>
+          <span class="skill-tag">Teamwork</span>
+          <span class="skill-tag">Organizing</span>
+          <span class="skill-tag">Planning</span>
+        </div>
+      </div>
+      <div class="skills-group fi">
+        <h4>Languages</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">Tamil</span>
+          <span class="skill-tag">English</span>
+          <span class="skill-tag">Hindi</span>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="sec-label">02 // Education</div>
+  <h2 class="sec-title">Academic <em>Path</em></h2>
+  <div class="edu-row">
+    <div class="edu-card fi">
+      <div class="edu-score">8.5</div>
+      <h3>B.Tech in Agricultural Engineering</h3>
+      <div class="inst">SRM Valliammai Engineering College</div>
+      <div class="yr">2022 - 2026</div>
+    </div>
+    <div class="edu-card fi">
+      <div class="edu-score">87%</div>
+      <h3>12th Standard</h3>
+      <div class="inst">Zion Matriculation Higher Secondary School</div>
+      <div class="yr">2021 - 2022</div>
+    </div>
+    <div class="edu-card fi">
+      <div class="edu-score">83%</div>
+      <h3>10th Standard</h3>
+      <div class="inst">C.S.I.St. Stephen's Matriculation School</div>
+      <div class="yr">2019 - 2020</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="sec-label">03 // Projects</div>
+  <h2 class="sec-title">Featured <em>Work</em></h2>
+  <div class="proj-grid">
+    <div class="proj-card fi">
+      <div class="proj-num">01</div>
+      <div class="proj-period">Nov 2025 - Apr 2026</div>
+      <h3>Integrated Water Stress Detection App (Patent Filled)</h3>
+      <p>Developed a multi-sensor mobile application for water stress detection using SPAD chlorophyll readings, thermal imaging, and RGB phone camera data.</p>
+      <ul>
+        <li>Captured leaf temperature, chlorophyll index, and visual symptoms to create a unified stress assessment model.</li>
+      </ul>
+      <div class="proj-tags">
+        <span class="proj-tag">Thermal Imaging</span>
+        <span class="proj-tag">App Development</span>
+      </div>
+    </div>
+
+    <div class="proj-card fi">
+      <div class="proj-num">02</div>
+      <div class="proj-period">Sep 2025 - Apr 2026</div>
+      <h3>SoC-Based Variable-Rate SiC-Powered Smart Sprayer (Patent Filled)</h3>
+      <p>Designed a smart knapsack sprayer equipped with SoC sensors for real-time crop condition monitoring and automated variable-rate chemical spraying.</p>
+      <ul>
+        <li>Integrated SiC-powered electronics to enhance battery life and energy efficiency during continuous field operation.</li>
+      </ul>
+      <div class="proj-tags">
+        <span class="proj-tag">IoT / Sensors</span>
+        <span class="proj-tag">SiC Electronics</span>
+      </div>
+    </div>
+
+    <div class="proj-card fi">
+      <div class="proj-num">03</div>
+      <div class="proj-period">Jan 2025 - May 2025</div>
+      <h3>Growth Performance Analysis of Amaranthus</h3>
+      <p>Conducted a controlled growth study on Amaranthus using organic (Panchakavya, Fish Amino Acid) and inorganic (Urea, DAP) fertilizers.</p>
+      <ul>
+        <li>Monitored growth parameters including plant height, leaf count, chlorophyll index, and biomass yield.</li>
+        <li>Evaluated nutrient efficiency and identified the most sustainable input.</li>
+      </ul>
+      <div class="proj-tags">
+        <span class="proj-tag">Crop Science</span>
+        <span class="proj-tag">Sustainability</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INTERNSHIPS -->
+<section id="internships">
+  <div class="sec-label">04 // Experience</div>
+  <h2 class="sec-title">Internships & <em>Exposure</em></h2>
+  <div class="intern-list">
+    <div class="intern-card fi">
+      <div class="intern-dot"></div>
+      <div class="intern-body">
+        <h3>Intern</h3>
+        <div class="co">GSSR CONSTRUCSUN LLP, Adambakkam</div>
+        <div class="mo">Nov 2025</div>
+        <p>Gained knowledge to use DGPS, total station, and land measurement computing in AutoCAD.</p>
+      </div>
+    </div>
+    <div class="intern-card fi">
+      <div class="intern-dot"></div>
+      <div class="intern-body">
+        <h3>Intern</h3>
+        <div class="co">SAMDIC, Nandanam</div>
+        <div class="mo">Aug 2025</div>
+        <p>Gained practical exposure to farm machinery operation and marketing strategies.</p>
+      </div>
+    </div>
+    <div class="intern-card fi">
+      <div class="intern-dot"></div>
+      <div class="intern-body">
+        <h3>Intern</h3>
+        <div class="co">NAVANARI ENTERPRISES PVT.LTD, Pozhichalur</div>
+        <div class="mo">Jun 2025</div>
+        <p>Gained practical knowledge about marketing products and difficulties in the supply chain.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="sec-label">05 // Awards</div>
+  <h2 class="sec-title">Milestones & <em>Achievements</em></h2>
+  <div class="ach-grid">
+    <div class="ach-card fi">
+      <span class="ach-icon">🌍</span>
+      <h3>World Records (Kalam Books)</h3>
+      <p>Participated in "Making 1000 Varieties of Dosa in 100 mins" and "Making 1 lakh Seedballs in 100 mins by 1000 Students".</p>
+    </div>
+    <div class="ach-card fi">
+      <span class="ach-icon">🥇</span>
+      <h3>1st & 2nd Prize — Smart Sprayer</h3>
+      <p>1st prize at S.A. Engineering College and 2nd prize at RMK Engg & Sairam Institute for paper presentation on "SOC based variable rate SiC powered sprayer".</p>
+    </div>
+    <div class="ach-card fi">
+      <span class="ach-icon">🥈</span>
+      <h3>2nd & 3rd Prize — Food & Environment</h3>
+      <p>2nd prize at IEI TNSC for "Achieving Zero Discharge", 2nd prize at SRM Food Hackathon, and 3rd prize at SRM for "Grondlink-Linking groundnut to its origin".</p>
+    </div>
+    <div class="ach-card fi">
+      <span class="ach-icon">🎙️</span>
+      <h3>1st Prize — Debate & Extempore</h3>
+      <p>Won 1st prize in Tech Debate competition at SIMATS Engineering and 1st prize in Extempore (Jamsync) at Dhanish College of Engineering.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="sec-label">06 // Certifications</div>
+  <div class="cert-row">
+    <div class="cert-pill fi">
+      <span>💻</span><span>Diploma in PHP Fullstack Development</span>
+    </div>
+    <div class="cert-pill fi">
+      <span>🍎</span><span>Food Processing and Technology</span>
+    </div>
+    <div class="cert-pill fi">
+      <span>🚁</span><span>Drone and Robotics</span>
+    </div>
+    <div class="cert-pill fi">
+      <span>⚙️</span><span>Diploma in Mechanical Software</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="sec-label">07 // Contact</div>
+    <h2 class="sec-title">Let's <em>Connect</em></h2>
+    <p class="contact-p fi">Looking to collaborate on smart agricultural solutions, precision farming technology, or IoT applications? Let's get in touch.</p>
+    
+    <div class="contact-grid fi">
+      <a href="mailto:rithickcr2@gmail.com" class="c-link">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+        rithickcr2@gmail.com
+      </a>
+      <a href="tel:7200051824" class="c-link">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+        +91 7200051824
+      </a>
+      <a href="https://rithickcr7.github.io/rithik-portfolio" target="_blank" class="c-link">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+        Portfolio Link
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Designed & Built by <span>RITHIK.E</span> &copy; 2026</p>
+</footer>
 
 <script>
-// TYPEWRITER
-let txt="RITHIK.E";
-let i=0;
-function type(){
-  if(i<txt.length){
-    document.getElementById("type").innerHTML+=txt[i];
-    i++;
-    setTimeout(type,100);
-  }
-}
-type();
-
-// PARTICLES
-const canvas=document.getElementById("bg");
-const ctx=canvas.getContext("2d");
-
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
-
-let particles=[];
-for(let i=0;i<80;i++){
-  particles.push({
-    x:Math.random()*canvas.width,
-    y:Math.random()*canvas.height
+  // Custom Cursor
+  const cur = document.getElementById('cur');
+  document.addEventListener('mousemove', e => {
+    cur.style.left = e.clientX + 'px';
+    cur.style.top = e.clientY + 'px';
   });
-}
-
-function animate(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  particles.forEach(p=>{
-    p.y+=0.4;
-    if(p.y>canvas.height)p.y=0;
-    ctx.fillStyle="#3BFF7E";
-    ctx.fillRect(p.x,p.y,2,2);
+  document.querySelectorAll('a, .btn').forEach(el => {
+    el.addEventListener('mouseenter', () => cur.classList.add('big'));
+    el.addEventListener('mouseleave', () => cur.classList.remove('big'));
   });
-  requestAnimationFrame(animate);
-}
-animate();
 
-// SCROLL
-const sections=document.querySelectorAll("section");
-window.addEventListener("scroll",()=>{
-  sections.forEach(sec=>{
-    if(sec.getBoundingClientRect().top<window.innerHeight-100){
-      sec.classList.add("show");
-    }
-  });
-});
+  // Fade In Observer
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting) {
+        entry.target.classList.add('on');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fi').forEach(el => observer.observe(el));
 </script>
 
 </body>
